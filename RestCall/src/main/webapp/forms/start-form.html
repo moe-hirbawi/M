@@ -1,0 +1,46 @@
+<form class="form-horizontal">
+  <div class="form-group">
+    <label class="control-label">Comic Link</label>
+    <div class="controls">
+      <a ng-href="{{imgLink}}" target="_blank"> The Image Link</a>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label">Comic Link</label>
+    <div class="controls">
+      <img ng-src="{{imgLink}}" alt-text="Funny Picture"></img>
+    </div>
+  </div>
+  
+  <div class="form-group">
+    <label class="control-label">Show Another Comic ?</label>
+    <div class="controls">
+      <input type="checkbox" ng-model="show" ></input>
+    </div>
+  </div>
+
+  <script cam-script type="text/form-script">
+  var variableManager = camForm.variableManager;
+  $scope.show = false;
+  
+  camForm.on('form-loaded', function(){
+	variableManager.fetchVariable('img');
+  });
+  
+  camForm.on('variables-fetched', function(){
+	$scope.imgLink = camForm.variableManager.variableValue('img');
+  });
+  
+  camForm.on('submit', function(){
+  
+	variableManager.createVariable({
+        name: 'show',
+        type: 'Boolean',
+        value: $scope.show,
+        isDirty: true
+      });
+  });
+  
+  </script>
+</form>
